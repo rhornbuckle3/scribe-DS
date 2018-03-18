@@ -1,0 +1,8 @@
+\section{Wrap-up}
+\subsection*{Decision Trees}
+\qquad -Pick the most informative features first.\newline
+\null \qquad -Caveat: Has a tendency to overfit.
+\subsection*{Random Forests}
+\qquad -Pick subsets of data randomly.\newline
+\null \qquad -Make a decision tree for each subset of data.\newline
+\null \qquad -The resulting consensus of your forest will somewhat mitigate the challenges faced by decision trees.
