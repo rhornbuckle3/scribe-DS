@@ -1,0 +1,4 @@
+\section{Entropy Review}
+Entropy is a measure of the average uncertainty in the random variable \textit{x}. You can also think of entropy as the maximum potential sum of information that the random variable 
+\textit{x} can provide.\newline
+The entropy of a data set is defined as: \[H(x)=N\sum_{\textbf{X}}^{}P(x)\times log_2(\frac{1}{P(x)}) \]
