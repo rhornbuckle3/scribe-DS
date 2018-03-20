@@ -1,5 +1,5 @@
 \section{Random Forests}
-A Random Forest can circumvent some of the issues faced by decision trees and mitigate the model's tendency to overfit somewhat.
+A Random Forest can circumvent some of the issues faced by decision trees and somewhat mitigate the model's tendency to overfit.
 \begin{enumerate}[(1)]
 \item
  Randomly select \textit{n} Samples from \textbf{X} out of a maximum size of N (\textit{n}=~0.8N is a good size)
