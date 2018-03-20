@@ -8,7 +8,7 @@ Obtain a Decision Tree with those \textit{n} samples
 \item
 Repeat steps 1 \& 2 to obtain trees:  $T_1,\,T_2,\,T_3,\,T_4,...,\, T_\textit{t}$
 \item
-Given a new sample, \textit{x}, "classify" it according to $T_1(\textit{x}),\,T_2(\textit{x}),\,T_3(\textit{x}),\,...,\,T_\textit{t}(\textit{x})$. We'll call it T(\textit{x}).
+Given a new sample, \textit{x}, "classify" it according to $T_1(\textit{x}),\,T_2(\textit{x}),\,T_3(\textit{x}),\,...,\,T_\textit{t}(\textit{x})$. We'll call our classifier T(\textit{x}).
 \item
 Final Decision: $$T(\textit{x})=\frac{1}{\textit{t}}\sum_{i=1}^{\textit{t}} T_i(\textit{x})$$
 \end{enumerate}
