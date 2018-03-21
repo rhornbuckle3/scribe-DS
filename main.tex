@@ -1,0 +1,319 @@
+\documentclass{article}
+
+%============================================
+%============================================
+%===== PACKAGES AND DOCUMENT SETTINGS =====
+%============================================
+%============================================
+
+%===== General margin setup =====
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%===== Packages that I normally like to use
+\usepackage{amsmath,amssymb} %General math symbols and stuff
+\usepackage[mathscr]{euscript} %To use script letters with \mathscr{}
+\usepackage{amsthm} %To be able to write Definitions, Theorems, etc.
+\usepackage{graphicx} % To scale equations and put figures wherever
+\usepackage{framed} % To be able to frame theorems and stuff with begin{framed} ... \end{framed}
+\usepackage{float} %To be able to place figures exactly where I want with [H]
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{cite}
+\usepackage[hidelinks, breaklinks=true]{hyperref} %To be able to use links inside the document; [hidelinks removes the ugly red boxes]
+\usepackage{xcolor}  \definecolor{shadecolor}{rgb}{.95,.95,.95}  %To put a shaded region
+\usepackage[font=footnotesize]{caption}
+\usepackage{nicefrac} %to put small fractions nicely with \nicefrac{1}{2}
+\usepackage{ragged2e}	%to put \justify
+\usepackage[shortlabels]{enumitem}	%To put letters in enumerate with begin{enumitem}[(a)]
+
+%===== Algorithm setup =====
+\usepackage[ruled,vlined]{algorithm2e}
+
+%===== Example setup =====
+\usepackage{mdframed}
+\usepackage{changepage}
+\newmdenv[
+  topline=false,
+  bottomline=false,
+  skipabove=\topsep,
+  skipbelow=\topsep
+]{siderules}
+
+%===== Theorems, lemmas, definitions, etc.
+\theoremstyle{definition}
+\newtheorem{myDefinition}{Definition}
+\newtheorem{myTheorem}{Theorem}
+\newtheorem{myLemma}{Lemma}
+\newtheorem{myCorollary}{Corollary}
+\newtheorem{myProposition}{Proposition}
+\newtheorem{myExample}{Example}
+\newtheorem{myExercise}{Exercise}
+\newtheorem{myRemark}{Remark}
+\newtheorem{myConjecture}{Conjecture}
+
+%===== Page counters, theorem counters, etc.
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+\renewcommand{\themyDefinition}{\thelecnum.\arabic{myDefinition}}
+\renewcommand{\themyTheorem}{\thelecnum.\arabic{myTheorem}}
+\renewcommand{\themyLemma}{\thelecnum.\arabic{myLemma}}
+\renewcommand{\themyCorollary}{\thelecnum.\arabic{myCorollary}}
+\renewcommand{\themyProposition}{\thelecnum.\arabic{myProposition}}
+\renewcommand{\themyExample}{\thelecnum.\arabic{myExample}}
+\renewcommand{\themyExercise}{\thelecnum.\arabic{myExercise}}
+\renewcommand{\themyRemark}{\thelecnum.\arabic{myRemark}}
+\renewcommand{\themyConjecture}{\thelecnum.\arabic{myConjecture}}
+
+%===== Header box =====
+\newcommand{\lecture}[3]{
+\pagestyle{myheadings}
+\thispagestyle{plain}
+\newpage
+\setcounter{lecnum}{#1}
+\setcounter{page}{1}
+\noindent
+\begin{center}
+\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal line
+\rule{\textwidth}{0.4pt}\\[1\baselineskip] % Thin horizontal line
+\vbox{\vspace{2mm}
+\hbox to 6.28in { {\bf CS 4980/6980: Introduction to Data Science} \hfill $\copyright$ Spring 2018 }
+\vspace{4mm}
+\hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+\vspace{4mm}
+\hbox to 6.28in { {\scshape Instructor: Daniel L. Pimentel-Alarc\'on}  \hfill Scribed by: #3 }}
+\vspace{-2mm}
+\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal line
+\rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
+\end{center}
+\markboth{Lecture #1: #2}{Lecture #1: #2}
+\vspace*{4mm}
+}
+
+%====================================
+%====================================
+% ===== VARIABLES AND COMMANDS =====
+%====================================
+%====================================
+
+
+%===== Some frequent commands that I use =====
+\newcommand{\bs}[1]{\boldsymbol{#1}} %bold symbol
+\newcommand{\hatt}[1]{\boldsymbol{\hat{#1}}} %bold hat
+\newcommand{\careful}{\textcolor{red}}
+\newcommand{\comment}{\textcolor{blue}}
+\newcommand*\rot{\rotatebox{90}} %To rotate text in table
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{\ensuremath{#2}}} % To scale variables in equations
+
+%===== In case you want to add colored text =====
+\newcommand{\blue}{\textcolor{blue}}
+
+%===== Miscelaneous math symbols =====
+\def \R{\mathbb{R}}
+\def \Pr{\mathsf{P}}
+\def \T{\mathsf{T}}
+\def \c{\mathsf{c}}
+\def \spn{{\rm span}}
+\def \Ord{\mathscr{O}}
+\def \<{\langle}
+\def \>{\rangle}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+%===== Common scalars that will be used throughout =====
+\def \D{{\hyperref[DDef]{{\rm D}}}} % ambient Dimension
+\def \N{{\hyperref[NDef]{{\rm N}}}} %Number of samples
+\def \xi{{\hyperref[xiDef]{{\rm x}}}} % a scalar variable x
+
+%===== Common vectors that will be used throughout =====
+\def \xx{{\hyperref[xxDef]{\bs{{\rm x}}}}} % a vector x
+\def \yy{{\hyperref[yyDef]{\bs{{\rm y}}}}} % a vector y
+
+%===== Common matrices that will be used throughout =====
+\def \I{{\hyperref[IDef]{\bs{{\rm I}}}}} % Identity matrix
+\def \X{{\hyperref[XDef]{\bs{{\rm X}}}}} % Data matrix
+
+%Indices that will be used throughout.
+\def \i{{\hyperref[iDef]{{\rm i}}}} % index used for samples, usually goes from 1 to N
+
+%=====================================
+%=====================================
+%===== HERE BEGINS THE DOCUMENT =====
+%=====================================
+%=====================================
+
+\begin{document}
+
+%===== Lecture's number, title, and student's name.
+\lecture{12} % Lecture number
+{Decision Trees} % Lecture title
+{Safin Salih and Russell Hornbuckle} % Student's name
+
+%===== Section
+\section{Decision Trees}
+
+
+
+\begin{siderules}
+\subsection{Tree Overview}
+Let's look at the structure of a tree. On the top is the Root node. Children of the root node that have children of their own are called internal nodes (or inner nodes.) Nodes with no children of their own are called leaf nodes (or terminal nodes.)
+
+\includegraphics[width=\textwidth]{decisiontree}
+ 
+
+\end{siderules}
+\newpage
+A decision tree is a tree structure where each internal node represents a test on an attribute, each branch represents an outcome of the test, and each leaf node represents a classifying label (the decision of the tree.) The paths from root to leaf represent classification rules.
+
+\qquad Here we have a test set of samples \textbf{X}, each with 3 attributes and a variable of interest, \textbf{Y}:
+
+
+\begin{center}
+\begin{tabular}{| l || c | c | c | c | c |}
+\hline
+\textbf{X = Attributes} & Person 1 & Person 2 & Person 3 & $\cdots$ & Person $\N$ \\ \hline \hline 
+Height & 5'10" & 5'7" & 6'1" & $\cdots$ & 5'5" \\ \hline
+Weight & 146 & 160 & 155 & $\cdots$ & 130 \\ \hline
+Age & 46 & 51 & 33 & $\cdots$ & 57 \\ \hline
+ \hline
+\textbf{Y = Cancer?} & 0 & 1 & 0 & $\cdots$ & 0 \\ \hline
+
+\end{tabular}
+\end{center}
+
+Let's build a rudimentary decision tree for classifying our sample data:
+
+\includegraphics[width=\textwidth]{decisiontree2}
+
+Let's say that we have a new sample, Person \textit{x}:
+\begin{center}
+$
+ $ $ x = \begin{bmatrix}
+       \ 5'7"             \\[0.3em]
+       \ 163   \\[0.3em]
+       70           &\\[0.3em]
+       ?  &
+     \end{bmatrix}$
+ \end{center}
+ We don't know whether or not person \textit{x} has cancer so we'll use our decision tree to find out.
+     
+     
+\includegraphics[width=\textwidth]{decisiontree3} 
+
+Our decision tree has classified person \textit{x} as not having cancer.
+
+The question to ask now is: Which attribute should be at the root, and in what order should the other attributes follow it? This is where the concept of entropy from information theory grants powerful insight.
+\begin{siderules}
+\subsection{Entropy Review}
+Entropy is a measure of the average uncertainty in the random variable \textit{x}. You can also think of entropy as the maximum potential sum of information that the random variable 
+\textit{x} can provide.\newline
+The entropy of a data set is defined as: \[H(x)=N\sum_{\textbf{X}}^{}P(x)\times log_2(\frac{1}{P(x)}) \]
+\end{siderules}
+\subsection{Information Gain}
+By design, a decision tree recursively splits your training set. At each descending level of a decision tree, the optimal split is one where each slice of training data going into the children of the current node is as clustered from the other slices as possible. You can achieve this by measuring the entropy of each feature vector. The feature vector with the highest entropy will provide higher quality clustered slices than the other feature vectors. At every new node within the tree, you must remeasure the entropy of the remaining feature vectors present for your slice of the training set to achieve optimal splits.
+\subsection{Downsides to Decision Trees}
+\begin{enumerate}[-]
+
+\item
+Decision Trees have high variance. A single mistake within the feature data can produce a wildly \qquad different outcome for the relevant sample. \newline
+\item
+Decision Trees are notoriously bad for over-fitting to their training data. In the next section, we'll discuss a variant model that alleviates some of these shortcomings
+\end{enumerate}
+
+\section{Random Forests}
+A Random Forest is a variant on the decision tree that can circumvent some of the issues faced by decision trees and somewhat mitigate the model's tendency to over-fit.
+\begin{enumerate}[(1)]
+\item
+ Randomly select \textit{n} Samples from \textbf{X} out of a maximum size of N (\textit{n}=~0.8N is a good size)
+\item
+Obtain a Decision Tree with those \textit{n} samples
+\item
+Repeat steps 1 \& 2 to obtain trees:  $T_1,\,T_2,\,T_3,\,T_4,...,\, T_\textit{t}$
+\item
+Given a new sample, \textit{x}, "classify" it according to $T_1(\textit{x}),\,T_2(\textit{x}),\,T_3(\textit{x}),\,...,\,T_\textit{t}(\textit{x})$. We'll call it T(\textit{x}).
+\item
+Final Decision: $$T(\textit{x})=\frac{1}{\textit{t}}\sum_{i=1}^{\textit{t}} T_i(\textit{x})$$
+\end{enumerate}
+This can also be stated as: \qquad T(\textit{x})=consensus of ($T_1(\textit{x}),...,\,T_\textit{t}(\textit{x}))$
+
+
+
+
+\newpage
+\begin{siderules}
+\begin{myExample}[Practical Example: Infidelity]
+Is my girlfriend/boyfriend/whatever (my \textit{dog}?) cheating on me?
+\begin{center}
+\begin{tabular}{| l || c | c | c | c | c | c | c | c | c | c | c | c | c |}
+\hline
+\textbf{X}=\textbf{Variables} & 1 & 2 & 3 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14  \\ \hline \hline
+Age & 25 & 20 & 33 & 23 & 25 & 32 & 27 & 21 & 25 & 27 & 26 & 29 & 47  \\ \hline
+Length & $\frac{1}{2}$ & 2 & 7 & 5 & 6 & 10 & 3 & 4 & $\frac{3}{2}$ & 3 & 4 & $\frac{1}{3}$ & 1 \\ \hline
+\# of children & 0 & 0 & 2 & 1 & 0 & 3 & 0 & 0 & 0 & 0 & 1 & 0 & 6 \\ \hline
+\# of hours away & 20 & 7 & 10 & 7 & 13 & 2 & 8 & 7 & 13 & 11 & 8 & 4 & 12 \\ \hline
+\# of trips per year & 2 & 3 & 5 & 2 & 2 & 5 & 10 & 4 & 3 & 2 & 0 & 2 & 6 \\ \hline
+Previous offenses & 2 & 1 & 0 & 2 & 0 & 0 & 2 & 3 & 0 & 4 & 0 & 0 & 13 \\ \hline \hline 
+\textbf{Y}=Cheating (?) & 1 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 1\\ \hline 
+\end{tabular}
+\end{center}
+We will compute this Random Forest next lecture.
+\end{myExample}
+\end{siderules}
+\section{Wrap-up}
+\subsection*{Decision Trees}
+\begin{enumerate}[-]
+
+\item
+Pick the most informative features first.\newline
+\item
+Caveat: Has a tendency to overfit and cannot handle errors within the data set.
+\end{enumerate}
+
+\subsection*{Random Forests}
+\begin{enumerate}[-]
+\item
+Pick subsets of data randomly.\newline
+\item
+Make a decision tree for each subset of data.\newline
+\item
+The resulting consensus of your forest will somewhat mitigate the challenges faced by decision trees.
+\end{enumerate}
+
+\end{document} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
