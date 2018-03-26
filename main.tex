@@ -32,9 +32,17 @@
 \usepackage{nicefrac} %to put small fractions nicely with \nicefrac{1}{2}
 \usepackage{ragged2e}	%to put \justify
 \usepackage[shortlabels]{enumitem}	%To put letters in enumerate with begin{enumitem}[(a)]
+\usepackage{qtree}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage[11pt]{moresize}
 
 %===== Algorithm setup =====
 \usepackage[ruled,vlined]{algorithm2e}
+\usepackage[]{forest}
+\forestset{.style={for tree={parent anchor=south, child anchor=north,align=center,inner sep=2pt}}}
+
 
 %===== Example setup =====
 \usepackage{mdframed}
@@ -168,7 +176,11 @@
 \subsection{Tree Overview}
 Let's look at the structure of a tree. On the top is the Root node. Children of the root node that have children of their own are called internal nodes (or inner nodes.) Nodes with no children of their own are called leaf nodes (or terminal nodes.)
 
-\includegraphics[width=\textwidth]{decisiontree}
+\begin{center}
+\begin{forest}
+[Root Node [Inner [Leaf][Nodes] ] [Nodes [Leaf] [Nodes ] ] ]
+\end{forest}
+\end{center}
  
 
 \end{siderules}
@@ -192,8 +204,39 @@ Age & 46 & 51 & 33 & $\cdots$ & 57 \\ \hline
 \end{center}
 
 Let's build a rudimentary decision tree for classifying our sample data:
-
-\includegraphics[width=\textwidth]{decisiontree2}
+\begin{center}
+\begin{forest}
+for tree={
+  l sep=30pt,
+  parent anchor=south,
+  align=center
+}
+[Height
+  [Weight,edge label={node[midway,left]{{ \ssmall {\rotatebox{48}{$<$ 5'8}}}}}
+    [Age,edge label={node[midway,left]{ \ssmall {\rotatebox{65}{$<$ 150lbs}}}}
+     [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+     [0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]
+    [Age,edge label={node[midway,right]{ \ssmall {\rotatebox{295}{$\geq$ 150lbs}}}}
+    [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+    [0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}]]
+  ]
+  [Weight,edge label={node[midway,right]{ \ssmall {\rotatebox{312}{$\geq$ 5'8}}}}
+	[Age,edge label={node[midway,left]{ \ssmall {\rotatebox{65}{$<$ 150lbs}}}}
+   		[1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+   		[0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]
+    [Age,edge label={node[midway,right]{ \ssmall {\rotatebox{295}{$\geq$ 150lbs}}}}
+    [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+   		[0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]  
+  ]
+]
+\end{forest}
+\end{center}
+%\begin{center}
+%\begin{forest}
+%[ [Height $<$ 5'8 [Weight $<$ 150lbs[Age $<$ 50yrs [Cancer:\qquad 1]] [Age $\geq$ 50yrs ]] [Weight $\geq$ 150lbs [Age $<$ 50yrs] [Age $\geq$ 50yrs ]] ] [Height $\geq$ 5'8 %[Weight $<$ 150lbs[Age $<$ 50yrs] [Age $\geq$ 50yrs ]] [Weight $\geq$ 150lbs [Age $<$ 50yrs] [Age $\geq$ 50yrs ]] ] ]
+%\end{forest}
+%\end{center}
+%\includegraphics[width=\textwidth]{decisiontree2}
 
 Let's say that we have a new sample, Person \textit{x}:
 \begin{center}
@@ -208,7 +251,33 @@ $
  We don't know whether or not person \textit{x} has cancer so we'll use our decision tree to find out.
      
      
-\includegraphics[width=\textwidth]{decisiontree3} 
+\begin{center}
+\begin{forest}
+for tree={
+  l sep=30pt,
+  parent anchor=south,
+  align=center
+}
+[Height,red
+  [Weight,red,edge label={node[midway,left]{{ \ssmall {\rotatebox{48}{\textcolor{red}{$<$ 5'8}}}}}}
+    [Age,edge label={node[midway,left]{ \ssmall {\rotatebox{65}{$<$ 150lbs}}}}
+     [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+     [0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]
+    [Age,red,edge label={node[midway,right]{ \ssmall {\rotatebox{295}{\textcolor{red}{$\geq$ 150lbs}}}}}
+    [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+    [0,red,edge label={node[midway,right]{\tiny {\rotatebox{285}{\textcolor{red}{ $\geq$ 50yrs}}}}}]]
+  ]
+  [Weight,edge label={node[midway,right]{ \ssmall {\rotatebox{312}{$\geq$ 5'8}}}}
+	[Age,edge label={node[midway,left]{ \ssmall {\rotatebox{65}{$<$ 150lbs}}}}
+   		[1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+   		[0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]
+    [Age,edge label={node[midway,right]{ \ssmall {\rotatebox{295}{$\geq$ 150lbs}}}}
+    [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+   		[0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]  
+  ]
+]
+\end{forest}
+\end{center}
 
 Our decision tree has classified person \textit{x} as not having cancer.
 
