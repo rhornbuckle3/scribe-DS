@@ -184,7 +184,7 @@ Let's look at the structure of a tree. On the top is the Root node. Children of 
  
 
 \end{siderules}
-\newpage
+%\newpage
 A decision tree is a tree structure where each internal node represents a test on an attribute, each branch represents an outcome of the test, and each leaf node represents a classifying label (the decision of the tree.) The paths from root to leaf represent classification rules.
 
 \qquad Here we have a test set of samples \textbf{X}, each with 3 attributes and a variable of interest, \textbf{Y}:
@@ -202,7 +202,7 @@ Age & 46 & 51 & 33 & $\cdots$ & 57 \\ \hline
 
 \end{tabular}
 \end{center}
-
+\newpage
 Let's build a rudimentary decision tree for classifying our sample data:
 \begin{center}
 \begin{forest}
@@ -214,8 +214,8 @@ for tree={
 [Height
   [Weight,edge label={node[midway,left]{{ \ssmall {\rotatebox{48}{$<$ 5'8}}}}}
     [Age,edge label={node[midway,left]{ \ssmall {\rotatebox{65}{$<$ 150lbs}}}}
-     [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
-     [0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]
+     [0,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+     [1,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]
     [Age,edge label={node[midway,right]{ \ssmall {\rotatebox{295}{$\geq$ 150lbs}}}}
     [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
     [0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}]]
@@ -238,10 +238,10 @@ for tree={
 %\end{center}
 %\includegraphics[width=\textwidth]{decisiontree2}
 
-Let's say that we have a new sample, Person \textit{x}:
+Let's say that we have a new sample, Person \textbf{x}:
 \begin{center}
 $
- $ $ x = \begin{bmatrix}
+ $ $ \textbf{x} = \begin{bmatrix}
        \ 5'7"             \\[0.3em]
        \ 163   \\[0.3em]
        70           &\\[0.3em]
@@ -261,8 +261,8 @@ for tree={
 [Height,red
   [Weight,red,edge label={node[midway,left]{{ \ssmall {\rotatebox{48}{\textcolor{red}{$<$ 5'8}}}}}}
     [Age,edge label={node[midway,left]{ \ssmall {\rotatebox{65}{$<$ 150lbs}}}}
-     [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
-     [0,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]
+     [0,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
+     [1,edge label={node[midway,right]{\tiny {\rotatebox{285}{ $\geq$ 50yrs}}}}] ]
     [Age,red,edge label={node[midway,right]{ \ssmall {\rotatebox{295}{\textcolor{red}{$\geq$ 150lbs}}}}}
     [1,edge label={node[midway,left]{\tiny {\rotatebox{75}{ $<$ 50yrs}}}}]
     [0,red,edge label={node[midway,right]{\tiny {\rotatebox{285}{\textcolor{red}{ $\geq$ 50yrs}}}}}]]
@@ -279,7 +279,7 @@ for tree={
 \end{forest}
 \end{center}
 
-Our decision tree has classified person \textit{x} as not having cancer.
+Our decision tree has classified person \textbf{x} as not having cancer.
 
 The question to ask now is: Which attribute should be at the root, and in what order should the other attributes follow it? This is where the concept of entropy from information theory grants powerful insight.
 \begin{siderules}
